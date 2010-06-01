@@ -1,4 +1,4 @@
-nick = "LoreBot"
+nick = "Thoth"
 username = "lua"
 realname = "Solace: Star Requiem"
 
@@ -6,7 +6,7 @@ server = "irc.freenode.net"
 
 channels
 {
-	"#lorebot";
+	"#solace-dev";
 }
 
 admins
