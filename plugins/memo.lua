@@ -1,9 +1,8 @@
 --[[
-	LoreBot
-	#solace-dev channel bot
+	Memo System
 ]]
 
-PLUGIN.Name = "LoreBot"
+PLUGIN.Name = "Memo System"
 
 --memo handling
 --todo: Redo time formatting to allow for an easy sorted list
@@ -53,6 +52,16 @@ do
 			reply("Done.")
 		end
 	}
+
+	Command "memo_subscribers" "subscribers"
+	{
+		function()
+			send{method = "notice", target = user.nick, message = "Subscriber list:"}
+			for nick, v in pairs(users) do
+				send{method = "notice", target = user.nick, message = nick}
+			end
+		end
+	}
 	
 	Command "memo_add" "memo" "add"
 	{
@@ -72,9 +81,10 @@ do
 				time = os.date();
 				author = user.nick;
 			}
-			
+
+			local userList = channels[channel].users
 			for nick, v in pairs(users) do
-				if channels[channel].users[nick] then
+				if userList[nick] then
 					send{target = nick, message = formatMemo(m)}
 				else
 					table.insert(v.pending, m)
