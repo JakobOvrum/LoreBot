@@ -4,14 +4,45 @@
 
 PLUGIN.Name = "Memo System"
 
+local json = require "json"
+
 --memo handling
 --todo: Redo time formatting to allow for an easy sorted list
 do
-	local memos = {}
-	local users = {}
+	local memos, users
 
+	function Load()
+		local f = io.open("memosystem.json", "r")
+		if f then
+			local memosystem = json.decode(f:read("*a"))
+			memos, users = memosystem.memos, memosystem.users
+			f:close()
+		else
+			memos, users = {}, {}
+		end
+	end
+
+	function Unload()
+		local data = json.encode({memos = memos, users = users})
+		local f = assert(io.open("memosystem.json", "w"))
+		f:write(data)
+		f:close()
+	end
+
+	--helpers
 	local function formatMemo(m)
 		return ("[%s] \"%s\" from %s: \"%s\""):format(m.time, m.name, m.author, m.text)
+	end
+
+	local function verifyMemoName(text)
+		for c in text:gmatch(".") do
+			local b = c:byte()
+			if b < 32 or b > 126 then
+				return false
+			end
+		end
+
+		return true
 	end
 
 	Hook "OnJoin"
