@@ -150,7 +150,7 @@ do
 			local m = memos[name]
 			if m then
 				memos[name] = nil
-				reply("Removed \"%s\".", name)
+				reply("Removed memo \"%s\".", name)
 			else
 				reply("No memo by that name.")
 			end
@@ -183,15 +183,30 @@ do
 
 			local found = false
 			for name, m in pairs(memos) do
-				if name:lower():find(search) then
+				if name:lower():find(search) or m.author:lower():find(search) then
 					found = true
-					reply(formatMemo(m))
+					send{method = "notice", target = user.nick, message = formatMemo(m)}
 				end
 			end
 
 			if not found then
 				reply("No matches.")
 			end
+		end
+	}
+
+	Command "memo_help"
+	{
+		help = "Lists help for memo system.";
+
+		helpText = [[
+Use !subscribe to subscribe to memos, then "!memo <name> <text...>" to add a new memo. 
+Online subscribers are immediately PM'd the memo. Subscribers not currently in the channel will be messaged as soon as they join the channel. 
+You can overwrite your own memos by adding a new one with the same name. 
+Finally, you can use "!list <search text...>" to search for a memo either by name or author. Leave the search text blank to list all memos.]];
+
+		function()
+			send{method = "notice", target = user.nick, message = helpText}
 		end
 	}
 end
