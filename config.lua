@@ -15,3 +15,11 @@ admins
 }
 
 plugin_dir = "plugins"
+
+--github plugin
+github_repository = {
+	user = "BackwardSpy";
+	name = "Solace";
+	channel = "#solace-dev";
+	interval  = 60; --how often to check for updates, in seconds
+}
