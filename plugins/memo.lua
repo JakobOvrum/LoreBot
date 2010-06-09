@@ -132,7 +132,7 @@ do
 				if userList[nick] then
 					send{target = nick, message = formatMemo(m)}
 				else
-					table.insert(v.pending, m)
+					table.insert(v.pending, name)
 				end
 			end
 			
