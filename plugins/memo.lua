@@ -108,6 +108,17 @@ do
 				reply("You need to be on the subscription list to add a memo.")
 				return
 			end
+
+			local existing = memos[name]
+			if existing and existing.author ~= user.nick then
+				reply("You can't overwrite \"%s\" because you didn't write it.", existing.name)
+				return
+			end
+
+			if not verifyMemoName(name) then
+				reply("Memo name contains invalid characters.")
+				return
+			end
 			
 			local m = {
 				name = name;
