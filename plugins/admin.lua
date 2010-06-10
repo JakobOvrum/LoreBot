@@ -74,3 +74,12 @@ Command "pm" "send"
 		reply("Sent \"%s\" to \"%s\"", message, target)
 	end
 }
+
+Command "memory"
+{
+	admin = true;
+
+	function()
+		reply("%iKb", collectgarbage("count"))
+	end
+}
