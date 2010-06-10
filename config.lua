@@ -12,6 +12,7 @@ channels
 admins
 {
 	"jA_cOp";
+	"blankthemuffin";
 }
 
 plugin_dir = "plugins"
