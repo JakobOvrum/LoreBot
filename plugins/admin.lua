@@ -10,17 +10,6 @@ function Load(bot)
 	BOT = bot
 end
 
---bot administration
-Command "login"
-{	
-	function(password)
-		if CONFIG.password and CONFIG.password == password then
-			reply("Welcome, %s", user.nick)
-			loggedIn[user.host] = true
-		end
-	end
-}
-
 Command "reload"
 {
 	admin = true;
