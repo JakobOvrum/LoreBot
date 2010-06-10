@@ -52,13 +52,16 @@ do
 			
 			local u = users[user.nick]
 			if u then
-				self:sendChat(user.nick, ("You have %i new memo(s)."):format(#u.pending))
-				for k, name in ipairs(u.pending) do
-					local m = memos[name]
-					if m then
-						self:sendChat(user.nick, formatMemo(m))
+				local pending = #u.pending
+				if pending > 0 then
+					self:sendChat(user.nick, ("You have %i new memo(s)."):format(#u.pending))
+					for k, name in ipairs(u.pending) do
+						local m = memos[name]
+						if m then
+							self:sendChat(user.nick, formatMemo(m))
+						end
+						u.pending[k] = nil
 					end
-					u.pending[k] = nil
 				end
 			else
 				self:sendChat(channel, ("Welcome to %s, %s."):format(channel, user.nick))
