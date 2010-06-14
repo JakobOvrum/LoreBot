@@ -107,6 +107,11 @@ do
 		expectedArgs = "^(%S+) (.+)$";
 		
 		function(name, text)
+			if not channels[channel] then
+				reply("This command must be initiated from a channel.")
+				return
+			end
+			
 			if not users[user.nick] then
 				reply("You need to be on the subscription list to add a memo.")
 				return
