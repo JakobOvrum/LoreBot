@@ -40,8 +40,8 @@ do
 
 				local changes = repo:getChanges()
 				if changes then
-					for k, commit in ipairs(changes) do
-						self:sendChat(repo_channel, formatCommit(commit))
+					for i = #changes, 1, -1 do
+						self:sendChat(repo_channel, formatCommit(changes[i]))
 					end
 				end
 			end
